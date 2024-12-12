@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"crypto/ecdsa"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -110,7 +111,7 @@ func GetAddressFromKeyStoreFile(keyStoreFile string) (gethcommon.Address, error)
 	}
 
 	if address, ok := m["address"].(string); !ok {
-		return gethcommon.Address{}, fmt.Errorf("address not found in key file")
+		return gethcommon.Address{}, errors.New("address not found in key file")
 	} else {
 		return gethcommon.HexToAddress(address), nil
 	}

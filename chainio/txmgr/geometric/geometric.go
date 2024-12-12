@@ -349,7 +349,7 @@ func (t *GeometricTxManager) ensureAnyTransactionConfirmed(
 		}
 
 		if len(txnsToQuery) == 0 {
-			return nil, fmt.Errorf("all transactions failed")
+			return nil, errors.New("all transactions failed")
 		}
 
 		// Wait for the next round.
