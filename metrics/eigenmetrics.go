@@ -4,6 +4,7 @@ package metrics
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"time"
 
@@ -113,7 +114,7 @@ func (m *EigenMetrics) Start(ctx context.Context, reg prometheus.Gatherer) <-cha
 
 	go func() {
 		err := httpServer.ListenAndServe()
-		if err == http.ErrServerClosed {
+		if errors.Is(err, http.ErrServerClosed) {
 			m.logger.Info("server closed")
 		} else {
 			errChan <- utils.WrapError("Prometheus server failed", err)
